@@ -1,4 +1,4 @@
 .idea
 node_modules
 dist
-scratch_padd
+.scratch_pad
