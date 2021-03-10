@@ -1,0 +1,12 @@
+{
+  "name": "web_lab08",
+  "version": "1.0.0",
+  "description": "Consiste en crear un juego de memoria usando React.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "Pablo Méndez",
+  "license": "ISC"
+}
