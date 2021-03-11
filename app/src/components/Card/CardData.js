@@ -1,8 +1,9 @@
 export default class CardData {
-    constructor() {
+    constructor(icon) {
         this.viewer = null;
         this.wasGuessed = false;
         this.beingCompared = false;
+        this.icon = icon;
     }
 
     setBeingCompared(value){
