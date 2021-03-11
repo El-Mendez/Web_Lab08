@@ -14,50 +14,54 @@ export default class App extends React.Component {
         super(props);
         this.state = {
             deck: buildDeck(),
-            selectedGroup: [],
             isComparing: false,
         }
 
         this.counter = new Counter();
+        this.selectedGroup = [];
     }
 
     selectCard(card){
-        this.setState(() => {
-            if ( this.canSelect(card) ){
-                this.state.selectedGroup.push(card);
-                card.setBeingCompared(true);
+        if ( this.canSelect(card) ) {
+            this.selectCardInData(card);
 
-                if (this.state.selectedGroup.length > 1) {
-                    this.state.isComparing = true;
-                    this.counter.incrementCount();
+            if (this.selectedGroup.length > 1){
+                this.setState(() => { return {isComparing: true}})
+                this.counter.incrementCount();
 
-                    if (cardAreSame(this.state.selectedGroup)) {
-                        this.markCardGuessed()
-                    } else {
-                        setTimeout(() => {this.unselectCards();}, CONSTANTS.comparisonDelay);
-                    }
+                if (cardAreSame(this.selectedGroup)){
+                    this.markCardsGuessed();
+                } else  {
+                    setTimeout(() => {
+                        this.unselectCards()
+                        this.setState(() => { return {isComparing: false}})
+                    }, CONSTANTS.comparisonDelay);
                 }
-                this.state.isComparing = false;
             }
-        })
+        }
     }
 
     canSelect(card){
-        return !contains(this.state.selectedGroup, card)   // Si la carta no estaba seleccionada
+        return !contains(this.selectedGroup, card)   // Si la carta no estaba seleccionada
             && !this.state.isComparing                  // Si no estoy comparando otras cartas
             && !card.wasGuessed                       // La carta no ha sido adivinada
     }
 
+    selectCardInData(card){
+        card.setBeingCompared(true);
+        this.selectedGroup.push(card)
+    }
+
     unselectCards(){
-        while (this.state.selectedGroup.length > 0) {
-            const poppedCard = this.state.selectedGroup.pop();
+        while (this.selectedGroup.length > 0) {
+            const poppedCard = this.selectedGroup.pop();
             poppedCard.setBeingCompared(false);
         }
     }
 
-    markCardGuessed(){
-        while (this.state.selectedGroup.length > 0) {
-            const poppedCard = this.state.selectedGroup.pop();
+    markCardsGuessed(){
+        while (this.selectedGroup.length > 0) {
+            const poppedCard = this.selectedGroup.pop();
             poppedCard.setWasGuessed(true);
             poppedCard.setBeingCompared(false);
         }
