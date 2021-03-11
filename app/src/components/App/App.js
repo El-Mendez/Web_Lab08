@@ -4,6 +4,9 @@ import "./App.css"
 import buildDeck from "../../utils/buildDeck";
 import contains from "../../utils/contains";
 import cardAreSame from "../../utils/cardAreSame";
+import {CONSTANTS} from "../../constants"
+import Header from "../Header/Header";
+import Counter from "../Header/Counter";
 
 
 export default class App extends React.Component {
@@ -14,6 +17,8 @@ export default class App extends React.Component {
             selectedGroup: [],
             isComparing: false,
         }
+
+        this.counter = new Counter();
     }
 
     selectCard(card){
@@ -22,13 +27,17 @@ export default class App extends React.Component {
                 this.state.selectedGroup.push(card);
                 card.setBeingCompared(true);
 
-                if(this.state.selectedGroup.length > 1) {
-                    if(cardAreSame(this.state.selectedGroup)){
+                if (this.state.selectedGroup.length > 1) {
+                    this.state.isComparing = true;
+                    this.counter.incrementCount();
+
+                    if (cardAreSame(this.state.selectedGroup)) {
                         this.markCardGuessed()
                     } else {
-                        this.unselectCards();
+                        setTimeout(() => {this.unselectCards();}, CONSTANTS.comparisonDelay);
                     }
                 }
+                this.state.isComparing = false;
             }
         })
     }
@@ -57,6 +66,7 @@ export default class App extends React.Component {
     render() {
         return (
             <div className={"App"}>
+                <Header counter={this.counter}/>
                 <CardBoard
                     deck={this.state.deck}
                     selectCard={(card) => this.selectCard(card)}
