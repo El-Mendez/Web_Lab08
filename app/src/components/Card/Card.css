@@ -1,27 +1,28 @@
-.cardFront {
+.cardFront, .cardBack {
     display: flex;
-    background: #94e2f0;
-    color: #365c93;
-    align-items: center;
     justify-content: center;
     padding: 10px;
     margin: 10px;
-    border-radius: 5px;
+    align-items: center;
+    border-radius: 8px;
     width: 5.5em;
     height: 5.5em;
+
+    transition: margin 1s;
+}
+
+.cardFront {
+    background: #94e2f0;
+    color: #365c93;
     box-shadow: 2px 2px #7bb8c3;
 }
 
 .cardBack {
-    display: flex;
-    background: #c77a38;
+    background: #de8638;
     color: #cbdcd4;
-    align-items: center;
-    justify-content: center;
-    padding: 10px;
-    margin: 10px;
-    border-radius: 5px;
-    width: 5.5em;
-    height: 5.5em;
     box-shadow: 2px 2px #a7652b;
+}
+
+.cardBack:hover, .cardFront:hover {
+    margin: 0 20px 20px 0;
 }

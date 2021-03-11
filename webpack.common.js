@@ -36,7 +36,14 @@ module.exports = {
             },
             {
                 test: /\.(svg|eot|woff|woff2|ttf)$/,
-                use: ['file-loader']
+                use: {
+                    loader: "file-loader",
+                    options: {
+                        esModule: false,
+                        name: "[name].[ext]",
+                        outputPath: "vectors",
+                    }
+                }
             }
         ]
     },
