@@ -5,18 +5,31 @@ import ReactCardFlip from "react-card-flip";
 export default class Carta extends React.Component {
     constructor(props) {
         super(props);
+
         this.state = {
-            wasGuessed: this.props.wasGuessed,
-            beingCompared: this.props.beingCompared,
+            wasGuessed: this.props.cardData.wasGuessed,
+            beingCompared: this.props.cardData.beingCompared,
         }
+
+        this.props.cardData.viewer = this;
+
         this.handleClick = this.handleClick.bind(this);
     }
 
     handleClick(e) {
         e.preventDefault();
-        this.setState(prevState => ({ beingCompared: !prevState.beingCompared }));
         this.props.selectCard();
     }
+
+    dataWasChanged(){
+        this.setState(() => {
+            return {
+                wasGuessed: this.props.cardData.wasGuessed,
+                beingCompared: this.props.cardData.beingCompared,
+            }
+        })
+    }
+
 
     render() {
         return (

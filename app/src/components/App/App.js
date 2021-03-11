@@ -2,6 +2,7 @@ import React from "react";
 import CardBoard from "../CardBoard/CardBoard";
 import "./App.css"
 import buildDeck from "../../utils/buildDeck";
+import contains from "../../utils/contains";
 
 
 export default class App extends React.Component {
@@ -16,7 +17,16 @@ export default class App extends React.Component {
 
     selectCard(card){
         this.setState(() => {
-            this.state.selectedGroup.push(card);
+            if (contains(this.state.selectedGroup, card)){
+                while (this.state.selectedGroup.length > 0){
+                    const poppedCard = this.state.selectedGroup.pop();
+                    poppedCard.setBeingCompared(false);
+                }
+            }
+            else {
+                this.state.selectedGroup.push(card);
+                card.setBeingCompared(true);
+            }
         })
     }
 
