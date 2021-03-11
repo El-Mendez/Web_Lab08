@@ -1,7 +1,27 @@
 .cardFront {
-    background: darkslateblue;
+    display: flex;
+    background: #94e2f0;
+    color: #365c93;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 5.5em;
+    height: 5.5em;
+    box-shadow: 2px 2px #7bb8c3;
 }
 
 .cardBack {
-    background: indianred;
+    display: flex;
+    background: #c77a38;
+    color: #cbdcd4;
+    align-items: center;
+    justify-content: center;
+    padding: 10px;
+    margin: 10px;
+    border-radius: 5px;
+    width: 5.5em;
+    height: 5.5em;
+    box-shadow: 2px 2px #a7652b;
 }

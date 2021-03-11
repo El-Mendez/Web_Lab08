@@ -1,3 +1,7 @@
 .cardBoard {
-    background: black;
+    background: white;
+    display: flex;
+    flex-wrap: wrap;
+    overflow-y: auto;
+
 }
