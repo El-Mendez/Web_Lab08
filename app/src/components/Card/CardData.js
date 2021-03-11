@@ -20,4 +20,8 @@ export default class CardData {
         if (this.viewer)
             this.viewer.dataWasChanged();
     }
+
+    clone(){
+        return new CardData(this.icon);
+    }
 }

@@ -31,6 +31,7 @@ export default class Carta extends React.Component {
     }
 
 
+
     render() {
         return (
             <div className={"card"} onClick={this.handleClick}>
@@ -40,7 +41,7 @@ export default class Carta extends React.Component {
                     </div>
 
                     <div className={"cardBack"}>
-                        Adios
+                        <i className={"fas fa-atom"} />
                     </div>
 
                 </ReactCardFlip>
