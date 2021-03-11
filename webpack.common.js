@@ -7,8 +7,7 @@ module.exports = {
 
     plugins: [
         new HtmlWebpackPlugin({
-            template: "./app/src/index.html",
-            chunks: ["main"],
+            template: "./app/src/index.html"
         })
     ],
 
@@ -30,6 +29,10 @@ module.exports = {
                 test: /\.js$/,
                 loader: "babel-loader",
                 exclude: /(node_modules)/,
+            },
+            {
+                test: /\.css$/,
+                use: ["style-loader", "css-loader"],
             }
         ]
     },
