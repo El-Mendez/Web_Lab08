@@ -21,6 +21,10 @@ export default class CardData {
             this.viewer.dataWasChanged();
     }
 
+    areEqual(card){
+        return this.icon === card.icon;
+    }
+
     clone(){
         return new CardData(this.icon);
     }

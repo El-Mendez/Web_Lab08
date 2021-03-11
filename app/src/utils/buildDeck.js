@@ -1,5 +1,6 @@
 import {CONSTANTS} from "../constants"
 import CardData from "../components/Card/CardData";
+import shuffle from "./shuffle";
 
 export default () => {
     const cards = [];
@@ -10,5 +11,5 @@ export default () => {
         cards.push(card.clone())
     }
 
-    return cards
+    return shuffle(cards)
 }

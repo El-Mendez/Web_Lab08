@@ -30,8 +30,6 @@ export default class Carta extends React.Component {
         })
     }
 
-
-
     render() {
         return (
             <div className={"card"} onClick={this.handleClick}>
