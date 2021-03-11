@@ -22,6 +22,7 @@ export default class App extends React.Component {
     }
 
     selectCard(card){
+
         if ( this.canSelect(card) ) {
             this.selectCardInData(card);
 
@@ -31,6 +32,8 @@ export default class App extends React.Component {
 
                 if (cardAreSame(this.selectedGroup)){
                     this.markCardsGuessed();
+                    this.setState(() => { return {isComparing: false}})
+                    this.checkGameEnded();
                 } else  {
                     setTimeout(() => {
                         this.unselectCards()
@@ -64,6 +67,17 @@ export default class App extends React.Component {
             const poppedCard = this.selectedGroup.pop();
             poppedCard.setWasGuessed(true);
             poppedCard.setBeingCompared(false);
+        }
+    }
+
+    checkGameEnded() {
+        let gameEnded = true;
+        for (let i = 0; i < this.state.deck.length && gameEnded; i++) {
+            gameEnded = this.state.deck[i].wasGuessed;
+        }
+
+        if (gameEnded){
+            alert(`¡Felicidades! ¡Has ganado en tan solo ${this.counter.count} intentos!`)
         }
     }
 
