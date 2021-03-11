@@ -36,7 +36,7 @@ export default class Carta extends React.Component {
             <div className={"card"} onClick={this.handleClick}>
                 <ReactCardFlip isFlipped={this.state.beingCompared || this.state.wasGuessed}>
                     <div className={"cardFront"}>
-                        Hola
+                        <i className={"fas fa-camera"}/>
                     </div>
 
                     <div className={"cardBack"}>

@@ -35,7 +35,6 @@ export default class App extends React.Component {
             <div className={"App"}>
                 <CardBoard
                     deck={this.state.deck}
-                    selectedGroup={this.state.selectedGroup}
                     selectCard={(card) => this.selectCard(card)}
                 />
             </div>
