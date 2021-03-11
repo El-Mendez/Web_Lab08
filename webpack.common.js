@@ -2,14 +2,13 @@ const HtmlWebpackPlugin = require("html-webpack-plugin");
 
 module.exports = {
     entry: {
-        // main: "./app/src/test.js",
-        // TODO agregar un script
+        main: "./app/src/index.js",
     },
 
     plugins: [
         new HtmlWebpackPlugin({
-            // template: "./app/src/test.html",
-            // TODO agregar un template
+            template: "./app/src/index.html",
+            chunks: ["main"],
         })
     ],
 
@@ -27,6 +26,11 @@ module.exports = {
                     }
                 }
             },
+            {
+                test: /\.js$/,
+                loader: "babel-loader",
+                exclude: /(node_modules)/,
+            }
         ]
     },
 
