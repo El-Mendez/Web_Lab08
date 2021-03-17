@@ -1,3 +1,1 @@
-export default (cardList) =>{
-    return cardList[0].areEqual(cardList[1])
-}
+export default (cardList) => cardList[0].areEqual(cardList[1]);
