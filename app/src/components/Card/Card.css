@@ -23,6 +23,7 @@
     box-shadow: 2px 2px #a7652b;
 }
 
-.cardBack:hover, .cardFront:hover {
+/*todo poner que el focus haga algo*/
+.cardBack:hover, .cardFront:hover, .cardFront:focus, .cardBack:focus {
     margin: 0 20px 20px 0;
 }

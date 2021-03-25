@@ -1,5 +1,4 @@
 import CONSTANTS from '../constants';
-import CardData from '../components/Card/CardData';
 import shuffle from './shuffle';
 
 export default () => {
@@ -7,9 +6,9 @@ export default () => {
   const icons = shuffle([...CONSTANTS.icons]);
 
   while (cards.length < CONSTANTS.cardNumber) {
-    const card = new CardData(icons[cards.length]);
+    const card = icons[cards.length];
     cards.push(card);
-    cards.push(card.clone());
+    cards.push(card);
   }
 
   return shuffle(cards);

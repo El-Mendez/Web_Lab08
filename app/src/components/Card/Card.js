@@ -1,45 +1,46 @@
 import React from 'react';
 import './Card.css';
 import ReactCardFlip from 'react-card-flip';
+import PropTypes from 'prop-types';
+import CONSTANTS from '../../constants';
 
 export default class Carta extends React.Component {
   constructor(props) {
     super(props);
-
-    this.state = {
-      wasGuessed: this.props.cardData.wasGuessed,
-      beingCompared: this.props.cardData.beingCompared,
-    };
-
-    this.props.cardData.viewer = this;
-
     this.handleClick = this.handleClick.bind(this);
   }
 
   handleClick(e) {
+    const { props } = this;
     e.preventDefault();
-    this.props.selectCard();
-  }
-
-  dataWasChanged() {
-    this.setState(() => ({
-      wasGuessed: this.props.cardData.wasGuessed,
-      beingCompared: this.props.cardData.beingCompared,
-    }));
+    props.onclick();
   }
 
   render() {
+    const { props } = this;
     return (
-      <div className="card" onClick={this.handleClick}>
-        <ReactCardFlip isFlipped={this.state.beingCompared || this.state.wasGuessed}>
-          <div className="cardFront">
-            <i className={`fas ${this.props.cardData.icon} fa-5x`} />
-          </div>
+      <div className="card" onClick={this.handleClick} role="button" tabIndex={0}>
+        <ReactCardFlip isFlipped={!props.isFlipped}>
           <div className="cardBack">
             <i className="fas fa-atom fa-5x" />
+          </div>
+          <div className="cardFront">
+            <i className={`fas ${props.icon} fa-5x`} />
           </div>
         </ReactCardFlip>
       </div>
     );
   }
 }
+
+Carta.propTypes = {
+  icon: PropTypes.oneOf(CONSTANTS.icons),
+  isFlipped: PropTypes.bool,
+  onclick: PropTypes.func,
+};
+
+Carta.defaultProps = {
+  icon: 'fa-question',
+  isFlipped: false,
+  onclick() {},
+};
