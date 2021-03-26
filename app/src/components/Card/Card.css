@@ -2,12 +2,14 @@
     display: flex;
     justify-content: center;
     padding: 10px;
-    margin: 10px;
     align-items: center;
     border-radius: 8px;
     width: 5.5em;
     height: 5.5em;
+}
 
+.card {
+    margin: 10px;
     transition: margin 1s;
 }
 
@@ -23,7 +25,7 @@
     box-shadow: 2px 2px #a7652b;
 }
 
-/*todo poner que el focus haga algo*/
-.cardBack:hover, .cardFront:hover, .cardFront:focus, .cardBack:focus {
+.card:focus, .card:hover {
+    outline: none;
     margin: 0 20px 20px 0;
 }

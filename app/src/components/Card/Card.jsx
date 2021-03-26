@@ -8,6 +8,7 @@ export default class Carta extends React.Component {
   constructor(props) {
     super(props);
     this.handleClick = this.handleClick.bind(this);
+    this.handleKeyPress = this.handleKeyPress.bind(this);
   }
 
   handleClick(e) {
@@ -16,10 +17,17 @@ export default class Carta extends React.Component {
     props.onclick();
   }
 
+  handleKeyPress(e) {
+    const { props } = this;
+    if (e.code === 'Enter') {
+      props.onclick();
+    }
+  }
+
   render() {
     const { props } = this;
     return (
-      <div className="card" onClick={this.handleClick} role="button" tabIndex={0}>
+      <div className="card" onClick={this.handleClick} role="button" tabIndex={0} onKeyDown={this.handleKeyPress}>
         <ReactCardFlip isFlipped={!props.isFlipped}>
           <div className="cardBack">
             <i className="fas fa-atom fa-5x" />

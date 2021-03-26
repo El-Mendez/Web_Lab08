@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 import './CardBoard.css';
+import Header from '../Header/Header';
 import contains from '../../utils/contains';
 import CONSTANTS from '../../constants';
 
@@ -89,11 +90,20 @@ export default class CardBoard extends React.Component {
     const { state } = this;
 
     return (
-      <div className="cardBoard">
-        <p>{`Intentos: ${state.tries}`}</p>
-        {
+      <div>
+        <Header tries={state.tries} />
+        <div className="cardBoard">
+          {
           props.deck.map((card, index) => (
             <Card
+               /* Según la documentación de React, es correcto usar key=index
+               en tres situaciones diferentes:
+
+               1. Los items son estáticos y no cambian
+               2. Los items no tienen id
+               3. La lista nunca es ordenada ni filtrada.
+               Este es el caso 3, por lo que se puede usar key=index */
+            /* eslint-disable-next-line react/no-array-index-key */
               key={index}
               icon={card}
               onclick={() => this.trySelectCard(index)}
@@ -103,6 +113,7 @@ export default class CardBoard extends React.Component {
             />
           ))
         }
+        </div>
       </div>
     );
   }
