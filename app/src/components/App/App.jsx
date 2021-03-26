@@ -12,10 +12,11 @@ export default class App extends React.Component {
   }
 
   render() {
+    const { state } = this;
     return (
       <div className="App">
         <CardBoard
-          deck={this.state.deck}
+          deck={state.deck}
         />
       </div>
     );

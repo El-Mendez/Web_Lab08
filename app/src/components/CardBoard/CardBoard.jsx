@@ -1,9 +1,8 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import Card from '../Card/Card';
 import './CardBoard.css';
 import contains from '../../utils/contains';
-import itemsAreSame from '../../utils/itemsAreSame';
-import PropTypes from 'prop-types';
 import CONSTANTS from '../../constants';
 
 export default class CardBoard extends React.Component {
@@ -13,32 +12,32 @@ export default class CardBoard extends React.Component {
       guessedCards: [],
       selectedCards: [],
       isComparing: false,
+      tries: 0,
     };
+
     this.trySelectCard = this.trySelectCard.bind(this);
     this.selectCard = this.selectCard.bind(this);
-    this.unselectCards = this.unselectCards.bind(this);
-    this.guessCards = this.guessCards.bind(this);
-    this.comparedAreEqual = this.comparedAreEqual.bind(this);
+    this.canSelect = this.canSelect.bind(this);
+    this.selectAndCompare = this.selectAndCompare.bind(this);
+    this.checkIfWon = this.checkIfWon.bind(this);
   }
 
   trySelectCard(index) {
     const { state } = this;
-
-    if (state.isComparing) {
-      return;
-    }
-
-    if (state.selectedCards.length < 2) {
-      this.selectCard(index);
-    }
-
-    if (state.selectedCards.length >= 2) {
-      if (this.comparedAreEqual()) {
-        this.guessCards();
+    if (this.canSelect(index)) {
+      if (state.selectedCards.length > 0) {
+        this.selectAndCompare(index);
       } else {
-        this.unselectCards();
+        this.selectCard(index);
       }
     }
+  }
+
+  canSelect(index) {
+    const { state } = this;
+    return !contains(state.selectedCards, index)
+        && !contains(state.guessedCards, index)
+        && !state.isComparing;
   }
 
   selectCard(index) {
@@ -47,24 +46,42 @@ export default class CardBoard extends React.Component {
     }));
   }
 
-  unselectCards() {
-    this.setState({
-      selectedCards: [],
+  selectAndCompare(index) {
+    this.setState((prevState) => ({
+      isComparing: true,
+      selectedCards: [...prevState.selectedCards, index],
+      tries: prevState.tries + 1,
+    }), () => {
+      this.compareCards();
     });
   }
 
-  guessCards() {
-    this.setState((prevState) => ({
-      guessedCards: [...prevState.guessedCards, prevState.selectedCards],
-      selectedCards: [],
-    }));
+  compareCards() {
+    const { state, props } = this;
+    // Si los dos tienen símbolos iguales
+    if (props.deck[state.selectedCards[0]] === props.deck[state.selectedCards[1]]) {
+      this.setState((prevState) => ({
+        selectedCards: [],
+        guessedCards: [...prevState.guessedCards, ...prevState.selectedCards],
+        isComparing: false,
+      }), () => { this.checkIfWon(); });
+    } else {
+      setTimeout(() => {
+        this.setState({
+          selectedCards: [],
+          isComparing: false,
+        });
+      }, CONSTANTS.comparisonDelay);
+    }
   }
 
-  comparedAreEqual() {
+  checkIfWon() {
     const { state, props } = this;
-    const symbols = state.selectedCards.map((cardIndex) => props.deck[cardIndex]);
-    console.log(symbols);
-    return itemsAreSame(symbols);
+    if (state.guessedCards.length === props.deck.length) {
+      setTimeout(() => {
+        alert('ganaste :D');
+      }, CONSTANTS.comparisonDelay);
+    }
   }
 
   render() {
@@ -73,6 +90,7 @@ export default class CardBoard extends React.Component {
 
     return (
       <div className="cardBoard">
+        <p>{`Intentos: ${state.tries}`}</p>
         {
           props.deck.map((card, index) => (
             <Card
