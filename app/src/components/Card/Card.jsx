@@ -28,7 +28,7 @@ export default class Carta extends React.Component {
     const { props } = this;
     return (
       <div className="card" onClick={this.handleClick} role="button" tabIndex={0} onKeyDown={this.handleKeyPress}>
-        <ReactCardFlip isFlipped={!props.isFlipped}>
+        <ReactCardFlip isFlipped={props.isFlipped}>
           <div className="cardBack">
             <i className="fas fa-atom fa-5x" />
           </div>
